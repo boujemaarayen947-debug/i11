@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MyHealth AI - by Rayen Boujemaa</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #43cea2, #185a9d);
+      color: #fff;
+    }
+
+    header {
+      background: rgba(0, 0, 0, 0.4);
+      padding: 20px;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      backdrop-filter: blur(6px);
+      z-index: 1000;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.2rem;
+      font-weight: bold;
+    }
+
+    header p {
+      margin: 5px 0 0;
+      font-size: 1rem;
+      font-style: italic;
+      color: #f0f0f0;
+    }
+
+    nav {
+      margin-top: 15px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #fff;
+      margin: 0 15px;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #ffd700;
+    }
+
+    section {
+      padding: 60px 20px;
+      text-align: center;
+      animation: fadeIn 1.5s ease;
+    }
+
+    section h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.1);
+      margin: 20px auto;
+      padding: 25px;
+      border-radius: 20px;
+      max-width: 600px;
+      box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+    }
+
+    input, select, button {
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 10px;
+      border: none;
+      width: 80%;
+      font-size: 1rem;
+    }
+
+    button {
+      background: #ffd700;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #ffae00;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.4);
+      margin-top: 40px;
+      font-size: 0.9rem;
+    }
+
+    footer span {
+      font-weight: bold;
+      color: #ffd700;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>MyHealth AI</h1>
+    <p>Developed proudly by <span style="color:#ffd700;">Rayen Boujemaa</span></p>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#symptom">Symptom Checker</a>
+      <a href="#calories">Calories Calculator</a>
+    </nav>
+  </header>
+
+  <!-- Home -->
+  <section id="home">
+    <h2>Welcome to MyHealth AI 🌍</h2>
+    <div class="card">
+      <p>This smart assistant helps you with:</p>
+      <ul style="list-style:none; padding:0;">
+        <li>🩺 Detecting possible health issues</li>
+        <li>🍽️ Tracking your daily calorie intake</li>
+        <li>⚡ Giving useful health recommendations</li>
+      </ul>
+      <p><em>Presented by <span style="color:#ffd700;">Rayen Boujemaa</span></em></p>
+    </div>
+  </section>
+
+  <!-- Symptom Checker -->
+  <section id="symptom">
+    <h2>🩺 Symptom Checker</h2>
+    <div class="card">
+      <p>Fill in your symptoms and get an AI-based suggestion:</p>
+      <textarea id="symptoms" rows="4" placeholder="Describe your symptoms..."></textarea><br>
+      <button onclick="checkSymptoms()">Check Symptoms</button>
+      <p id="symptomResult"></p>
+    </div>
+  </section>
+
+  <!-- Calories Calculator -->
+  <section id="calories">
+    <h2>🍽️ Calories Calculator</h2>
+    <div class="card">
+      <p>Enter your food and calories will be calculated:</p>
+      <input type="text" id="food" placeholder="Food (e.g., Apple)">
+      <input type="number" id="cal" placeholder="Calories">
+      <button onclick="addCalories()">Add Food</button>
+      <p id="calorieList"></p>
+      <p><strong>Total Calories: <span id="totalCalories">0</span> kcal</strong></p>
+    </div>
+  </section>
+
+  <footer>
+    <p>Made with ❤️ by <span>Rayen Boujemaa</span> | Powered by ChatGPT</p>
+  </footer>
+
+  <script>
+    // Symptom Checker (demo AI rules)
+    function checkSymptoms() {
+      const symptoms = document.getElementById("symptoms").value.toLowerCase();
+      let result = "Please provide more details.";
+      if (symptoms.includes("fever") || symptoms.includes("cough")) {
+        result = "It looks like flu or a cold 🤒. If symptoms persist, visit a doctor.";
+      } else if (symptoms.includes("headache")) {
+        result = "It may be dehydration or stress. Drink water and rest.";
+      } else if (symptoms.includes("stomach")) {
+        result = "It might be indigestion. If severe, consult a doctor.";
+      }
+      document.getElementById("symptomResult").innerText = result;
+    }
+
+    // Calories Calculator
+    let totalCalories = 0;
+    let list = "";
+    function addCalories() {
+      const food = document.getElementById("food").value;
+      const cal = parseInt(document.getElementById("cal").value);
+      if (food && cal) {
+        totalCalories += cal;
+        list += `${food} (${cal} kcal)<br>`;
+        document.getElementById("calorieList").innerHTML = list;
+        document.getElementById("totalCalories").innerText = totalCalories;
+        document.getElementById("food").value = "";
+        document.getElementById("cal").value = "";
+      }
+    }
+  </script>
+</body>
+</html>
+
